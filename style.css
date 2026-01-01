@@ -8,77 +8,75 @@
 body {
   min-height: 100vh;
   background: linear-gradient(
-    rgba(0,0,0,0.55),
-    rgba(0,0,0,0.55)
-  ),
-  url("fundo.jpg") center/cover no-repeat;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.container {
-  width: 100%;
-  max-width: 420px;
-  padding: 25px;
-  text-align: center;
+    180deg,
+    #000 0%,
+    #1a0000 40%,
+    #c62828 100%
+  );
   color: #fff;
 }
 
-.logo img {
-  width: 120px;
-  margin-bottom: 15px;
+/* CONTAINER TELA CHEIA */
+.container {
+  min-height: 100vh;
+  width: 100%;
+  padding: 40px 25px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
+/* LOGO */
+.logo img {
+  width: 150px;
+  margin-bottom: 25px;
+}
+
+/* TÍTULO */
 h1 {
-  font-size: 1.6rem;
+  font-size: 2rem;
   font-weight: 300;
+  text-align: center;
 }
 
 h1 span {
   font-weight: 700;
-  font-size: 2rem;
-  color: #ff3b3b;
+  font-size: 2.5rem;
+  color: #fff;
 }
 
+/* BOTÕES */
 .buttons {
-  margin-top: 30px;
+  width: 100%;
+  max-width: 420px;
+  margin-top: 40px;
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 18px;
 }
 
 .btn {
-  background: #fff;
-  color: #c62828;
+  background: rgba(0,0,0,0.6);
+  color: #fff;
   text-decoration: none;
-  padding: 15px;
-  border-radius: 12px;
+  padding: 18px;
+  border-radius: 18px;
   font-weight: 600;
-  font-size: 1rem;
+  font-size: 1.1rem;
+  border: 2px solid #fff;
   transition: 0.3s;
 }
 
 .btn:hover {
-  background: #c62828;
-  color: #fff;
-  transform: scale(1.03);
+  background: #000;
+  transform: scale(1.04);
 }
 
+/* RODAPÉ */
 footer {
-  margin-top: 35px;
-  font-size: 0.85rem;
+  margin-top: auto;
+  padding-top: 40px;
+  font-size: 0.9rem;
   opacity: 0.9;
+  text-align: center;
 }
-
-.item {
-  background: #1c1c1c;
-  padding: 15px;
-  border-radius: 12px;
-  margin-bottom: 10px;
-  color: #fff;
-}
-
-
-
-

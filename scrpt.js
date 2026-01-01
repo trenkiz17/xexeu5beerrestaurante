@@ -8,143 +8,100 @@ window.onload = () => {
     document.querySelector(".container").style.opacity = 1;
     document.querySelector(".container").style.transform = "translateY(0)";
   }, 100);
-};
-const diasSemana = [
-  "Domingo",
-  "Segunda-feira",
-  "Terça-feira",
-  "Quarta-feira",
-  "Quinta-feira",
-  "Sexta-feira",
-  "Sábado"
-];
-
-const cardapios = {
-  1: {
-    titulo: "🥩 Segunda-feira",
-    itens: [
-      "Bife acebolado",
-      "Frango grelhado",
-      "Arroz",
-      "Feijão",
-      "Purê de batata",
-      "Salada de alface e tomate"
-    ]
-  },
-  2: {
-    titulo: "🍛 Terça-feira",
-    itens: [
-      "Feijoada completa",
-      "Lombo suíno acebolado",
-      "Arroz",
-      "Couve refogada",
-      "Laranja"
-    ]
-  },
-  3: {
-    titulo: "🍗 Quarta-feira",
-    itens: [
-      "Strogonoff de frango",
-      "Carne de panela",
-      "Arroz",
-      "Batata palha",
-      "Salada de repolho"
-    ]
-  },
-  4: {
-    titulo: "🍝 Quinta-feira",
-    itens: [
-      "Macarronada à bolonhesa",
-      "Frango assado",
-      "Arroz",
-      "Batata sauté",
-      "Salada verde"
-    ]
-  },
-  5: {
-    titulo: "🐟 Sexta-feira",
-    itens: [
-      "Peixe frito",
-      "Filé de tilápia grelhado",
-      "Arroz",
-      "Feijão",
-      "Salada de legumes",
-      "Limão"
-    ]
-  },
-  6: {
-    titulo: "🔥 Sábado",
-    itens: [
-      "Churrasco completo",
-      "Carne bovina",
-      "Linguiça",
-      "Frango",
-      "Arroz",
-      "Feijão tropeiro",
-      "Vinagrete",
-      "Farofa"
-    ]
-  },
-  0: {
-    titulo: "❌ Domingo",
-    itens: [
-      "Restaurante fechado",
-      "Bom descanso 😊"
-    ]
-  }
+};const cardapios = {
+  1: ["Bife acebolado","Frango grelhado","Arroz","Feijão","Purê de batata","Salada"],
+  2: ["Feijoada","Lombo suíno","Arroz","Couve","Laranja"],
+  3: ["Strogonoff","Carne de panela","Arroz","Batata palha","Salada"],
+  4: ["Macarronada","Frango assado","Arroz","Salada"],
+  5: ["Peixe frito","Arroz","Feijão","Salada"],
+  6: ["Churrasco","Arroz","Farofa","Vinagrete"],
+  0: ["Restaurante fechado 😴"]
 };
 
-// DATA ATUAL
 const hoje = new Date().getDay();
-
-// ELEMENTOS
-const tituloDia = document.getElementById("dia-semana");
-const container = document.getElementById("cardapio");
+const lista = document.getElementById("cardapio");
 const btnZap = document.getElementById("btnZap");
 
-// CARRINHO
-const carrinho = [];
+let carrinho = [];
+let tamanhoSelecionado = "";
 
-// TÍTULO DO DIA
-tituloDia.innerText = cardapios[hoje].titulo;
-
-// LIMPA
-container.innerHTML = "";
-
-// RENDERIZA ITENS
-cardapios[hoje].itens.forEach(item => {
+/* RENDERIZA CARDÁPIO */
+lista.innerHTML = "";
+cardapios[hoje].forEach(item => {
   const div = document.createElement("div");
-  div.classList.add("item");
-  div.innerHTML = `<h3>${item}</h3>`;
+  div.className = "item";
+  div.innerText = item;
 
-  div.addEventListener("click", () => {
+  div.onclick = () => {
     if (carrinho.includes(item)) {
-      carrinho.splice(carrinho.indexOf(item), 1);
+      carrinho = carrinho.filter(i => i !== item);
       div.classList.remove("selecionado");
     } else {
       carrinho.push(item);
       div.classList.add("selecionado");
     }
-  });
+  };
 
-  container.appendChild(div);
+  lista.appendChild(div);
 });
 
-// WHATSAPP
-btnZap.addEventListener("click", () => {
-  if (carrinho.length === 0) {
-    alert("Selecione pelo menos um prato 😊");
+/* TAMANHO */
+document.querySelectorAll(".tam").forEach(btn => {
+  btn.onclick = () => {
+    document.querySelectorAll(".tam").forEach(b => b.classList.remove("selecionado"));
+    btn.classList.add("selecionado");
+    tamanhoSelecionado = btn.dataset.tamanho;
+  };
+});
+
+/* WHATSAPP */
+btnZap.onclick = () => {
+  if (!tamanhoSelecionado) {
+    alert("Escolha o tamanho da marmita 🍱");
     return;
   }
 
-  let mensagem = `Olá! Gostaria de pedir o cardápio de hoje:%0A%0A`;
+  if (carrinho.length === 0) {
+    alert("Escolha pelo menos um prato 😊");
+    return;
+  }
+
+  let msg = `Olá! Gostaria de pedir:%0A%0A`;
+  msg += `🍱 Tamanho: ${tamanhoSelecionado}%0A%0A`;
+  msg += `🍽️ Pratos:%0A`;
+carrinho.forEach(item => {
+  msg += `- ${item}%0A`;
+});
+
+if (bebidasSelecionadas.length > 0) {
+  msg += `%0A🥤 Bebidas:%0A`;
+  bebidasSelecionadas.forEach(b => {
+    msg += `- ${b}%0A`;
+  });
+}
+
 
   carrinho.forEach(item => {
-    mensagem += `- ${item}%0A`;
+    msg += `- ${item}%0A`;
   });
 
-  const telefone = "5531995956396";
-  const url = `https://api.whatsapp.com/send?phone=${telefone}&text=${mensagem}`;
+  const tel = "5531995956396";
+  window.open(`https://api.whatsapp.com/send?phone=${tel}&text=${msg}`, "_blank");
+};
+  let bebidasSelecionadas = [];
 
-  window.open(url, "_blank");
+  // ===== BEBIDAS =====
+document.querySelectorAll(".bebida-item").forEach(bebida => {
+  bebida.addEventListener("click", () => {
+    const nome = bebida.innerText;
+
+    if (bebidasSelecionadas.includes(nome)) {
+      bebidasSelecionadas = bebidasSelecionadas.filter(b => b !== nome);
+      bebida.classList.remove("selecionado");
+    } else {
+      bebidasSelecionadas.push(nome);
+      bebida.classList.add("selecionado");
+    }
+  });
 });
+
