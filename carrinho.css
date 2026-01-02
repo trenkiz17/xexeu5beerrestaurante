@@ -1,119 +1,123 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
 
-    * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
-    }
+body {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #000 0%, #140000 40%, #2b0000 100%);
+  color: #fff;
+  padding: 20px;
+}
 
-    body {
-    background: linear-gradient(180deg, #000 0%, #140000 40%, #2b0000 100%);
-    color: #fff;
-    min-height: 100vh;
-    padding-bottom: 160px;
-    }
+/* HEADER */
+header {
+  background: #111;
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+  font-weight: bold;
+  border-radius: 12px;
+  width: 100%;
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+}
 
+/* CONTAINER DOS PEDIDOS (MAIOR) */
+.container {
+  width: 100%;
+  max-width: 700px; /* aumentei para desktop */
+  background: #000;
+  border-radius: 15px;
+  padding: 30px; /* mais espaçamento interno */
+  box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin: 0 auto; /* centraliza horizontalmente, mas não vertical */
+}
 
-    header {
-    background: #111;
-    color: #fff;
-    padding: 15px;
-    text-align: center;
-    font-weight: bold;
-    }
+/* ITENS DO CARRINHO */
+#listaCarrinho {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
 
-    .container {
-    max-width: 500px;
-    margin: 20px auto;
-    background: #000000;
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 5px 15px rgba(0,0,0,.15);
-    }
+.item-carrinho {
+  padding: 18px;
+  border: 1px solid #444;
+  border-radius: 12px;
+  background: #111;
+  position: relative;
+  font-size: 1.1rem;
+}
 
-    h2 {
-    margin-bottom: 10px;
-    color: #222;
-    }
+.btn-remover {
+  position: absolute;
+  top: 25px;
+  border: none;
+  background: transparent;
+  font-size: 20px;
+  cursor: pointer;
+  color: red;
+}
 
-    .item {
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
-    }
+.btn-remover:hover {
+  transform: scale(1.2);
+}
 
-    .item:last-child {
-    border-bottom: none;
-    }
+/* TOTAL */
+.total {
+  font-size: 22px;
+  font-weight: bold;
+  text-align: center;
+}
 
-    .total {
-    margin-top: 15px;
+/* BOTOES */
+button {
+  width: 100%;
+  padding: 16px;
+  font-size: 18px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.btn-finalizar {
+  background: #25d366;
+  color: #fff;
+}
+
+.btn-voltar {
+  background: #444;
+  color: #fff;
+}
+
+/* RESPONSIVO PARA CELULAR */
+@media screen and (max-width: 480px) {
+  .container {
+    max-width: 98%;       /* quase toda largura da tela */
+    padding: 30px;        /* aumenta o padding interno */
+    gap: 20px;
+    min-height: 70vh;     /* faz o quadrado ficar maior na altura, visual mais "grandão" */
+  }
+
+  .item-carrinho {
+    font-size: 1.1rem;    /* aumenta a fonte */
+    padding: 18px;        /* mais espaço interno */
+  }
+
+  .total {
+    font-size: 22px;
+  }
+
+  button {
+    padding: 16px;
     font-size: 18px;
-    font-weight: bold;
-    }
+  }
+}
 
-    button {
-    width: 100%;
-    margin-top: 15px;
-    padding: 12px;
-    font-size: 16px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    }
-
-    .btn-finalizar {
-    background: #25d366;
-    color: #fff;
-    }
-
-    .btn-voltar {
-    background: #444;
-    color: #fff;
-    }
-
-
-
-    /* WHATSAPP */
-    .zap {
-    position: fixed;
-    bottom: 5px;
-    right: 20px;
-    background: #25d366;
-    color: #fff;
-    padding: 16px 22px;
-    border-radius: 50px;
-    font-weight: 600;
-    text-decoration: none;
-    box-shadow: 0 8px 22px rgba(0,0,0,0.6);
-    transition: 0.3s;
-    }
-
-    .zap:hover {
-    transform: scale(1.1);
-    }
-    
-    .item-carrinho {
-    position: relative;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    margin-bottom: 10px;
-    }
-
-    .btn-remover {
-    position: absolute;
-    
-    
-    border: none;
-    background: transparent;
-    font-size: 18px;
-    cursor: pointer;
-    color: red;
-    }
-
-    .btn-remover:hover {
-    transform: scale(1.2);
-    }
-
-
-    

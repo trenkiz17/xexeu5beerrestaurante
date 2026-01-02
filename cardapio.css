@@ -221,9 +221,42 @@ body {
 
 @media (max-width: 600px) {
   .cart-top {
-    font-size: 20px;
-    padding: 14px 18px;
+    font-size: 16px;       /* menor que no desktop */
+    padding: 10px 14px;    /* deixa proporcional ao botão "Ver Carrinho" */
+  }
+
+  .ver-carrinho {
+    font-size: 16px;
+    padding: 10px 14px;
   }
 }
 
 
+.ver-carrinho {
+  position: fixed;
+  bottom: 15px;
+  left: 15px;
+  background: #ff2222; /* cor diferente para diferenciar do WhatsApp */
+  color: #fff;
+  padding: 12px 16px;
+  border-radius: 50px;
+  font-size: 18px;
+  font-weight: bold;
+  text-decoration: none;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  z-index: 999;
+  transition: 0.3s;
+}
+
+.ver-carrinho:hover {
+  background: #ff4343;
+  transform: scale(1.05);
+}
+
+/* BOTÃO VER CARRINHO RESPONSIVO */
+@media (max-width: 600px) {
+  .ver-carrinho {
+    font-size: 16px;       /* menor que no desktop */
+    padding: 10px 14px;    /* deixa proporcional ao WhatsApp */
+  }
+}
