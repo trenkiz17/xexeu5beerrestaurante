@@ -4,19 +4,20 @@
   <meta charset="UTF-8">
   <title>Cardápio - Xexeu 5</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="cardapio.css">
 </head>
 <body>
 
+  <button id="irCarrinho">Adicionar ao carrinho</button>
+
   <header class="topo">
-    <h1>🍽️ Cardápio do Dia</h1>
+    <h1>🍽️ Cardápio do Dia</h1>  
+    <h2 class="selecine1">(selecione o que deseja)</h2>
     <p id="dia-semana"></p>
 
-    <!-- TAMANHO DA MARMITA -->
     <section class="tamanhos">
-      <h2>🍱 Escolha o tamanho</h2>
+      <h2>Escolha o tamanho da Marmita</h2>
       <div class="opcoes">
         <button class="tam" data-tamanho="Pequena" data-preco="R$ 15,00">
           Pequena <span>R$ 15,00</span>
@@ -29,52 +30,23 @@
         </button>
       </div>
     </section>
-    
-    <section class="quantidade">
-  <h2>Quantidade</h2>
-  <div class="qtd-box">
-    <button id="menos">−</button>
-    <span id="qtd">1</span>
-    <button id="mais">+</button>
-  </div>
-</section>
-
   </header>
 
-  <!-- PRATOS -->
   <main class="lista" id="cardapio">
     <!-- JS preenche -->
   </main>
 
-  <!-- BEBIDAS -->
   <section class="bebidas">
     <h2>🥤 Bebidas</h2>
-
-    <div class="bebida-item" data-nome="Coca-Cola 2L" data-preco="R$ 12,00">
-      Coca-Cola 2L <span>R$ 12,00</span>
-    </div>
-
-    <div class="bebida-item" data-nome="Coca-Cola Lata" data-preco="R$ 5,00">
-      Coca-Cola Lata <span>R$ 5,00</span>
-    </div>
-
-    <div class="bebida-item" data-nome="Guaraná Antarctica 2L" data-preco="R$ 10,00">
-      Guaraná Antarctica 2L <span>R$ 10,00</span>
-    </div>
-
-    <div class="bebida-item" data-nome="Guaraná Lata" data-preco="R$ 5,00">
-      Guaraná Lata <span>R$ 5,00</span>
-    </div>
-
-    <div class="bebida-item" data-nome="Água Mineral" data-preco="R$ 3,00">
-      Água Mineral <span>R$ 3,00</span>
-    </div>
+    <div class="bebida-item" data-nome="Coca-Cola 2L" data-preco="R$ 12,00">Coca-Cola 2L <span>R$ 12,00</span></div>
+    <div class="bebida-item" data-nome="Coca-Cola Lata" data-preco="R$ 5,00">Coca-Cola Lata <span>R$ 5,00</span></div>
+    <div class="bebida-item" data-nome="Guaraná Antarctica 2L" data-preco="R$ 10,00">Guaraná Antarctica 2L <span>R$ 10,00</span></div>
+    <div class="bebida-item" data-nome="Guaraná Lata" data-preco="R$ 5,00">Guaraná Lata <span>R$ 5,00</span></div>
+    <div class="bebida-item" data-nome="Água Mineral" data-preco="R$ 3,00">Água Mineral <span>R$ 3,00</span></div>
   </section>
 
   <a href="index.html" class="voltar">⬅ Voltar</a>
 
-  <a href="#" class="zap" id="btnZap">📲 Pedir no WhatsApp</a>
-
-  <script src="scrpt.js"></script>
+  <script src="scrpt.js" defer></script>
 </body>
 </html>

@@ -1,163 +1,118 @@
-// ===== ANIMAÇÃO DE ENTRADA =====
 window.onload = () => {
+  // ===== ANIMAÇÃO =====
   const container = document.querySelector(".container");
-  if (!container) return;
-
-  container.style.opacity = 0;
-  container.style.transform = "translateY(20px)";
-
-  setTimeout(() => {
-    container.style.transition = "0.6s";
-    container.style.opacity = 1;
-    container.style.transform = "translateY(0)";
-  }, 100);
-};
-
-// ===== CARDÁPIO POR DIA =====
-const cardapios = {
-  1: ["Bife acebolado", "Frango grelhado", "Arroz", "Feijão", "Purê de batata", "Salada"],
-  2: ["Feijoada", "Lombo suíno", "Arroz", "Couve", "Laranja"],
-  3: ["Strogonoff", "Carne de panela", "Arroz", "Batata palha", "Salada"],
-  4: ["Macarronada", "Frango assado", "Arroz", "Salada"],
-  5: ["Peixe frito", "Arroz", "Feijão", "Salada"],
-  6: ["Churrasco", "Arroz", "Farofa", "Vinagrete"],
-  0: ["Restaurante fechado 😴"]
-};
-
-const hoje = new Date().getDay();
-const lista = document.getElementById("cardapio");
-const btnZap = document.getElementById("btnZap");
-
-// ===== ESTADOS =====
-let carrinho = [];
-let bebidasSelecionadas = [];
-let tamanhoSelecionado = "";
-
-// ===== RENDERIZA CARDÁPIO =====
-lista.innerHTML = "";
-
-cardapios[hoje].forEach(item => {
-  const div = document.createElement("div");
-  div.className = "item";
-  div.innerText = item;
-
-  div.addEventListener("click", () => {
-    if (carrinho.includes(item)) {
-      carrinho = carrinho.filter(i => i !== item);
-      div.classList.remove("selecionado");
-    } else {
-      carrinho.push(item);
-      div.classList.add("selecionado");
-    }
-  });
-
-  lista.appendChild(div);
-});
-
-// ===== TAMANHO DA MARMITA =====
-document.querySelectorAll(".tam").forEach(btn => {
-  btn.addEventListener("click", () => {
-    document.querySelectorAll(".tam").forEach(b => b.classList.remove("selecionado"));
-    btn.classList.add("selecionado");
-    tamanhoSelecionado = btn.dataset.tamanho.toLowerCase(); // IMPORTANTE
-  });
-});
-
-// ===== BEBIDAS =====
-document.querySelectorAll(".bebida-item").forEach(bebida => {
-  bebida.addEventListener("click", () => {
-    const nome = bebida.innerText;
-
-    if (bebidasSelecionadas.includes(nome)) {
-      bebidasSelecionadas = bebidasSelecionadas.filter(b => b !== nome);
-      bebida.classList.remove("selecionado");
-    } else {
-      bebidasSelecionadas.push(nome);
-      bebida.classList.add("selecionado");
-    }
-  });
-});
-
-// ===== QUANTIDADE =====
-let quantidade = 1;
-
-const spanQtd = document.getElementById("qtd");
-const btnMais = document.getElementById("mais");
-const btnMenos = document.getElementById("menos");
-
-btnMais.onclick = () => {
-  quantidade++;
-  spanQtd.innerText = quantidade;
-};
-
-btnMenos.onclick = () => {
-  if (quantidade > 1) {
-    quantidade--;
-    spanQtd.innerText = quantidade;
-  }
-};
-
-// ===== PREÇOS =====
-const precoMarmita = {
-  pequena: 12,
-  média: 15,
-  grande: 18
-};
-
-const precoBebidas = {
-  "Coca-Cola 2L": 12,
-  "Coca-Cola Lata": 5,
-  "Guaraná Antarctica 2L": 10,
-  "Guaraná Lata": 5,
-  "Água Mineral": 3
-};
-
-// ===== WHATSAPP =====
-btnZap.onclick = () => {
-  if (!tamanhoSelecionado) {
-    alert("Escolha o tamanho da marmita 🍱");
-    return;
+  if (container) {
+    container.style.opacity = 0;
+    container.style.transform = "translateY(20px)";
+    setTimeout(() => {
+      container.style.transition = "0.6s";
+      container.style.opacity = 1;
+      container.style.transform = "translateY(0)";
+    }, 100);
   }
 
-  if (bebidasSelecionadas.length === 0) {
-    alert("Escolha pelo menos uma bebida 🥤");
-    return;
-  }
+  // ===== CARDÁPIO =====
+  const cardapios = {
+    1: ["Bife acebolado", "Frango grelhado", "Arroz", "Feijão", "Purê de batata", "Salada"],
+    2: ["Feijoada", "Lombo suíno", "Arroz", "Couve", "Laranja"],
+    3: ["Strogonoff", "Carne de panela", "Arroz", "Batata palha", "Salada"],
+    4: ["Macarronada", "Frango assado", "Arroz", "Salada"],
+    5: ["Peixe frito", "Arroz", "Feijão", "Salada"],
+    6: ["Churrasco", "Arroz", "Farofa", "Vinagrete"],
+    0: ["Restaurante fechado 😴"]
+  };
 
-  // ===== CÁLCULO DO TOTAL =====
-  let total = 0;
+  const hoje = new Date().getDay();
+  const lista = document.getElementById("cardapio");
 
-  if (precoMarmita[tamanhoSelecionado]) {
-    total += precoMarmita[tamanhoSelecionado] * quantidade;
-  }
+  // ===== ESTADOS =====
+  let itensSelecionados = [];
+  let bebidasSelecionadas = [];
+  let tamanhoSelecionado = null; // agora é objeto {nome, preco}
+  let quantidade = 1;
 
-  bebidasSelecionadas.forEach(b => {
-    total += precoBebidas[b] || 0;
+  // ===== RENDERIZA ITENS =====
+  lista.innerHTML = "";
+  cardapios[hoje].forEach(item => {
+    const div = document.createElement("div");
+    div.className = "item";
+    div.innerText = item;
+
+    div.onclick = () => {
+      if (itensSelecionados.includes(item)) {
+        itensSelecionados = itensSelecionados.filter(i => i !== item);
+        div.classList.remove("selecionado");
+      } else {
+        itensSelecionados.push(item);
+        div.classList.add("selecionado");
+      }
+    };
+
+    lista.appendChild(div);
   });
 
-  // ===== TEXTO WHATS =====
-let texto = "*PEDIDO XEXEU BEER*\n\n";
-texto += "Quantidade: " + quantidade + "\n";
-texto += "Tamanho: " + tamanhoSelecionado + "\n\n";
+  // ===== TAMANHO =====
+  document.querySelectorAll(".tam").forEach(btn => {
+    btn.onclick = () => {
+      document.querySelectorAll(".tam").forEach(b => b.classList.remove("selecionado"));
+      btn.classList.add("selecionado");
 
-texto += "A marmita contém:\n";
-cardapios[hoje].forEach(item => {
-  texto += item + "\n";
-});
+      // salva nome e preço da marmita
+      tamanhoSelecionado = {
+        nome: btn.dataset.tamanho,
+        preco: parseFloat(btn.dataset.preco.replace("R$", "").replace(",", ".").trim())
+      };
+    };
+  });
 
-texto += "\nBebidas:\n";
-bebidasSelecionadas.forEach(b => {
-  texto += b + "\n";
-});
+  // ===== BEBIDAS =====
+  document.querySelectorAll(".bebida-item").forEach(b => {
+    b.onclick = () => {
+      const nome = b.dataset.nome; // pega só o nome da bebida
 
-texto += "\nTotal a pagar: R$ " + total.toFixed(2);
+      if (bebidasSelecionadas.includes(nome)) {
+        bebidasSelecionadas = bebidasSelecionadas.filter(x => x !== nome);
+        b.classList.remove("selecionado");
+      } else {
+        bebidasSelecionadas.push(nome);
+        b.classList.add("selecionado");
+      }
+    };
+  });
 
-  const tel = "5531995956396";
-  window.open(
-    "https://api.whatsapp.com/send?phone=" +
-      tel +
-      "&text=" +
-      encodeURIComponent(texto),
-    "_blank"
-  );
+  // ===== QUANTIDADE =====
+  const spanQtd = document.getElementById("qtd");
+  const btnMais = document.getElementById("mais");
+  const btnMenos = document.getElementById("menos");
+
+  if (btnMais) btnMais.onclick = () => { quantidade++; if (spanQtd) spanQtd.innerText = quantidade; };
+  if (btnMenos) btnMenos.onclick = () => { if (quantidade > 1) { quantidade--; if (spanQtd) spanQtd.innerText = quantidade; } };
+
+  // ===== IR PARA O CARRINHO =====
+  document.getElementById("irCarrinho").onclick = () => {
+    if (!tamanhoSelecionado) { alert("Escolha o tamanho da marmita 🍱"); return; }
+    if (itensSelecionados.length === 0 && bebidasSelecionadas.length === 0) { alert("Selecione pelo menos um item 🍽️"); return; }
+
+    const pedidos = JSON.parse(localStorage.getItem("pedidos")) || [];
+
+    pedidos.push({
+      numero: pedidos.length + 1,
+      itens: [...itensSelecionados],
+      bebidas: [...bebidasSelecionadas],
+      tamanho: tamanhoSelecionado, // objeto {nome, preco}
+      quantidade: quantidade
+    });
+
+    localStorage.setItem("pedidos", JSON.stringify(pedidos));
+
+    // limpa seleção
+    itensSelecionados = [];
+    bebidasSelecionadas = [];
+    tamanhoSelecionado = null;
+    quantidade = 1;
+    if (spanQtd) spanQtd.innerText = "1";
+    document.querySelectorAll(".selecionado").forEach(el => el.classList.remove("selecionado"));
+
+    window.location.href = "carrinho.html";
+  };
 };
