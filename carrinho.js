@@ -2,7 +2,6 @@ window.onload = () => {
   const lista = document.getElementById("listaCarrinho");
   const totalSpan = document.getElementById("total");
 
-  // ===== PREÇOS DAS BEBIDAS =====
   const precoBebidas = {
     "Coca-Cola 2L": 12,
     "Coca-Cola Lata": 5,
@@ -11,7 +10,6 @@ window.onload = () => {
     "Água Mineral": 3
   };
 
-  // ===== PEDIDOS =====
   let pedidos = JSON.parse(localStorage.getItem("pedidos")) || [];
   let totalGeral = 0;
 
@@ -35,9 +33,11 @@ window.onload = () => {
       const subtotal = subtotalMarmita + subtotalBebidas;
       totalGeral += subtotal;
 
+      // Adiciona botão X para remover
       lista.innerHTML += `
         <div class="item-carrinho">
-          <strong>🍱 Pedido ${i + 1}</strong><br>
+          <strong>🍱 Pedido ${i + 1}</strong>
+          <button class="btn-remover" data-index="${i}">❌</button><br>
           Tamanho: ${pedido.tamanho.nome} | Quantidade: ${pedido.quantidade}<br>
           Itens: ${pedido.itens.join(", ")}<br>
           Bebidas: ${pedido.bebidas.length ? pedido.bebidas.join(", ") : "Nenhuma"}<br>
@@ -48,11 +48,20 @@ window.onload = () => {
     });
 
     totalSpan.innerText = "R$ " + totalGeral.toFixed(2);
+
+    // Adiciona evento de remoção aos botões ❌
+    document.querySelectorAll(".btn-remover").forEach(btn => {
+      btn.onclick = () => {
+        const index = btn.getAttribute("data-index");
+        pedidos.splice(index, 1);
+        localStorage.setItem("pedidos", JSON.stringify(pedidos));
+        renderCarrinho();
+      };
+    });
   };
 
-  renderCarrinho(); // render inicial
+  renderCarrinho();
 
-  // ===== FINALIZAR PEDIDO =====
   document.getElementById("finalizar").onclick = () => {
     if (pedidos.length === 0) return alert("Carrinho vazio!");
 
@@ -79,19 +88,7 @@ window.onload = () => {
     renderCarrinho();
   };
 
-  // ===== VOLTAR =====
   document.getElementById("voltar").onclick = () => {
-    window.location.href = "index.html";
-  };
-
-  // ===== LIMPAR PEDIDOS =====
-  document.getElementById("limpar").onclick = () => {
-    if (pedidos.length === 0) return;
-
-    if (confirm("Deseja realmente limpar todos os pedidos?")) {
-      localStorage.removeItem("pedidos");
-      pedidos = [];
-      renderCarrinho();
-    }
+    window.location.href = "cardapio.html";
   };
 };

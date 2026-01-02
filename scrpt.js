@@ -1,3 +1,4 @@
+
 window.onload = () => {
   // ===== ANIMAÇÃO =====
   const container = document.querySelector(".container");
